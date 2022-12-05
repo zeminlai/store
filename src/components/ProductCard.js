@@ -18,20 +18,24 @@ const ProductCard = (props) => {
     const productQuantity = cart.getProductQuantity(court)
     return ( 
         <Card>
-            <Card.Body className="col">
-             
+            <Card.Body className='d-flex justify-content-between align-items-center'>
+                        <div className=''>
 
-                <Card.Title>Court {court.court}</Card.Title>
-                <Card.Text>{court.venue}</Card.Text>
-                <Card.Text>RM{court.price}</Card.Text>
+                            <Card.Title>Court {court.court}</Card.Title>
+                            <Card.Text>{court.venue}</Card.Text>
+                            <Card.Text>RM{court.price}</Card.Text>
+                        </div>
+                        <div className=''>
 
-                {productQuantity > 0 
-                    ? <>
-                    <Button  variant="danger" onClick={() => cart.deleteFromCart(court)}>Remove from cart</Button>
-                    </>
-                
-                    :<Button variant="primary" onClick={() => cart.addOneToCart(court)}>Add to cart</Button>
-                }
+                        {productQuantity > 0 
+                            ? <>
+                            <Button  variant="danger" onClick={() => cart.deleteFromCart(court)}>Remove from cart</Button>
+                            </>
+                        
+                            :<Button variant="primary" onClick={() => cart.addOneToCart(court)}>Add to cart</Button>
+                        }
+                        </div>
+                    
             </Card.Body>
         </Card>
      );

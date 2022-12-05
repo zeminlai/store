@@ -61,32 +61,30 @@ const Store = () => {
         }
         console.log(availableCourts)
     }
-
     return ( 
-        <>
+        <div>
             <h1 align="center" className="p-3">Search Courts</h1>
             
             <div align="center" className="m-5">
             <p>One hour interval only</p>
-            <form onSubmit={handleSubmit}>
-                <label for="venue">Choose a venue:</label>
-                <select id="venue" name="venue" value={venue} onChange={e => setVenue(e.target.value)}>
+            <form  onSubmit={handleSubmit} className="d-flex ">
+
+                <select className='form-select m-2' id="venue" name="venue" value={venue} onChange={e => setVenue(e.target.value)}>
                     <option value="KTDI">KTDI</option>
                     <option value="KTHO">KTHO</option>
                     <option value="KTC">KTC</option>
                     <option value="K9K10">K9/K10</option>
                 </select>
-                <label for="sport">Sport:</label>
-                <select id="sport" name="sport" value={sport} onChange={e => setSport(e.target.value)}>
+
+                <select className='form-select m-2' id="sport" name="sport" value={sport} onChange={e => setSport(e.target.value)}>
                     <option value="badminton">Badminton</option>
                     <option value="basketball">Basketball</option>
                     <option value="futsal">Futsal</option>
                     
                 </select>
-                <label for="date">Date:</label>
-                <input type="date" name="date" required id="datePickerId" value={date} onChange={e => setDate(e.target.value)}/>
-                <label for="time-start">Start time</label>
-                <select id="time" name="timestart" required value={timestart} onChange={e => setTimestart(e.target.value)}>
+                <input className="form-select m-2" type="date" name="date" min={new Date().toISOString().split('T')[0]} required id="datePickerId" value={date} onChange={e => setDate(e.target.value)}/>
+                
+                <select className='form-select m-2' id="time" name="timestart" required value={timestart} onChange={e => setTimestart(e.target.value)}>
                     <option value="12">12:00pm</option>
                     <option value="13">1:00pm</option>
                     <option value="14">2:00pm</option>
@@ -100,33 +98,23 @@ const Store = () => {
                     <option value="22">10:00pm</option>
                     
                 </select>
-                <select name="duration" id="duration" required>
+                <select className='form-select m-2' name="duration" id="duration" required>
                     <option value="1">1 hour</option>
                 </select>
                 
-                <input type="submit" value="Find!"></input>
+                <input class="btn btn-success m-2"type="submit" value="Find!"></input>
             </form>
-            <p>{date}</p>
         </div>
 
-        <Button onClick={testingFunc}>Show booked courts</Button>
 
-            
-        {availableCourts.map((court, index) => (
-
-            <div key={index}>
-                <ProductCard court={court} price={venueInfo.price}/>
-            </div>
-        ))}
-            {/* <Row className='g-3'>
-                {productsArray.map((product, index) => (
+            <Row className='gy-3 m-5'>
+                {availableCourts.map((court, index) => (
                     <div key={index}>
-                        <ProductCard product={product} />
+                        <ProductCard court={court} price={venueInfo.price}/>
                     </div>
                 ))}
-
-            </Row> */}
-        </>
+            </Row>
+        </div>
      );
 }
  

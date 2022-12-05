@@ -5,16 +5,18 @@ import { getProductData } from '../productStore';
 
 const CartProduct = (props) => {
     const cart = useContext(CartContext)
-    const id = props.id
+    const court = props.currentProduct.court
+    console.log(court)
     const quantity = props.quantity
-    const productData = getProductData(id)
+    console.log(quantity)
 
     return ( 
         <>
-            <h3>{productData.title}</h3>
-            <p>{quantity} total</p>
-            <p>RM {quantity * productData.price}</p>
-            <Button className="btn-danger"size='sm' onClick={() => cart.deleteFromCart(id)}>Remove</Button>
+            <h3>Court {court.court}</h3>
+            <p>Venue: {court.venue}</p>
+            <p></p>
+            <p>RM {court.price}</p>
+            <Button className="btn-danger"size='sm' onClick={() => cart.deleteFromCart(court)}>Remove</Button>
             <hr></hr>
         </>
      );

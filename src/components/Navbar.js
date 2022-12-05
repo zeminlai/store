@@ -46,7 +46,7 @@ const NavbarComponent = () => {
                 <>
                     {console.log(cart.items)}
                     {cart.items.map((currentProduct, idx) => (
-                        <CartProduct key={idx}id={currentProduct.id} quantity={currentProduct.quantity}/>
+                        <CartProduct key={idx} quantity={1} currentProduct={currentProduct}/>
                     ))}
                     <h3>Total: RM{cart.getTotalCost()}</h3>
                     <Button onClick={handleCheckout}>Checkout</Button>
