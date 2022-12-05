@@ -1,7 +1,7 @@
 import {Button, Row} from 'react-bootstrap'
 import { productsArray } from '../productStore';
 import ProductCard from '../components/ProductCard';
-import { useState } from 'react';
+import { useState,useEffect } from 'react';
 
 const Store = () => {
     const [venue, setVenue] = useState('KTDI') 
@@ -10,13 +10,16 @@ const Store = () => {
     const [duration, setDuration] = useState('1')
     const [sport, setSport] = useState('badminton')
     const [bookedCourt, setBookedCourt] = useState('')
+    const [venueInfo, setVenueInfo] = useState([])
+    const [availableCourts, setAvailableCourts] = useState([])
+
+    let searchCourt = {venue, sport, date, timestart}
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        const searchCourt = {venue, sport, date, timestart}
+        searchCourt = {venue, sport, date, timestart}
 
         console.log(searchCourt)
-        console.log(searchCourt.type)
 
         fetch('http://localhost:4000', {
             method: "POST",
@@ -24,10 +27,41 @@ const Store = () => {
             body: JSON.stringify(searchCourt)
         }).then(response => {
             return response.json();
-        }).then(data => {
-            setBookedCourt(data)
+        }).then( data => {
+             setBookedCourt(data.bookedCourt.bookedCourt)
+             setVenueInfo(data.venueInfo.venueInfo[0])
         })
     }
+
+    const testingFunc = () => {
+        console.log(bookedCourt)
+        console.log(venueInfo)
+        console.log(searchCourt)
+
+    }
+
+    useEffect(() =>{
+        setCourts()
+    },[bookedCourt,venueInfo])
+
+    const setCourts = () => {
+        setAvailableCourts([])
+        let booked = [];
+
+        for (let x in bookedCourt){
+            booked.push(bookedCourt[x].court)
+        }
+
+        for(let i = 1; i <= venueInfo.max_courts; i++){
+            if (!booked.includes(i)){
+                setAvailableCourts(availableCourts => [
+                    ...availableCourts, {searchCourt, courtNum: i} 
+                ])
+            }
+        }
+        console.log(availableCourts)
+    }
+
     return ( 
         <>
             <h1 align="center" className="p-3">Search Courts</h1>
@@ -75,16 +109,23 @@ const Store = () => {
             <p>{date}</p>
         </div>
 
-        <Button onClick={()=>console.log(bookedCourt)}>Show booked courts</Button>
+        <Button onClick={testingFunc}>Show booked courts</Button>
 
-            <Row className='g-3'>
+            
+        {availableCourts.map((court, index) => (
+
+            <div key={index}>
+                <ProductCard court={court} price={venueInfo.price}/>
+            </div>
+        ))}
+            {/* <Row className='g-3'>
                 {productsArray.map((product, index) => (
                     <div key={index}>
                         <ProductCard product={product} />
                     </div>
                 ))}
 
-            </Row>
+            </Row> */}
         </>
      );
 }

@@ -10,7 +10,8 @@ const NavbarComponent = () => {
     const handleShow = () => {setShow(true)};
     const handleClose = () => {setShow(false)}
 
-    const productsCount = cart.items.reduce((sum, product) => sum + product.quantity, 0)
+    const productsCount = cart.items.length;
+    // const productsCount = cart.items.reduce((sum, product) => sum + product.quantity, 0)
 
     const handleCheckout = async() => {
         await fetch("http://localhost:4000/create-checkout-session", {
@@ -45,7 +46,7 @@ const NavbarComponent = () => {
                 <>
                     {console.log(cart.items)}
                     {cart.items.map((currentProduct, idx) => (
-                        <CartProduct id={currentProduct.id} quantity={currentProduct.quantity}/>
+                        <CartProduct key={idx}id={currentProduct.id} quantity={currentProduct.quantity}/>
                     ))}
                     <h3>Total: RM{cart.getTotalCost()}</h3>
                     <Button onClick={handleCheckout}>Checkout</Button>

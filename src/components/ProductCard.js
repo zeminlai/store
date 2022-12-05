@@ -3,24 +3,34 @@ import { CartContext } from '../CartContext';
 import { useContext } from 'react';
 
 const ProductCard = (props) => {
-    const product = props.product;
+    const courtInfo = props.court.searchCourt;
+    const courtNum = props.court.courtNum
+    const court = {
+        court: courtNum,
+        venue: courtInfo.venue,
+        price: props.price,
+        timestart: courtInfo.timestart,
+        date: courtInfo.date,
+        sport: courtInfo.sport,
+        quantity: 0
+    }
     const cart = useContext(CartContext);
-    const productQuantity = cart.getProductQuantity(product.id)
-    console.log(cart.items)
+    const productQuantity = cart.getProductQuantity(court)
     return ( 
         <Card>
             <Card.Body className="col">
              
 
-                <Card.Title>{product.title}</Card.Title>
-                <Card.Text>RM{product.price}</Card.Text>
-           
+                <Card.Title>Court {court.court}</Card.Title>
+                <Card.Text>{court.venue}</Card.Text>
+                <Card.Text>RM{court.price}</Card.Text>
+
                 {productQuantity > 0 
                     ? <>
-                    <Button  variant="danger" onClick={() => cart.deleteFromCart(product.id)}>Remove from cart</Button>
+                    <Button  variant="danger" onClick={() => cart.deleteFromCart(court)}>Remove from cart</Button>
                     </>
                 
-                    :<Button variant="primary" onClick={() => cart.addOneToCart(product.id)}>Add to cart</Button>
+                    :<Button variant="primary" onClick={() => cart.addOneToCart(court)}>Add to cart</Button>
                 }
             </Card.Body>
         </Card>

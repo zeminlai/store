@@ -1,4 +1,4 @@
-import {createContext, useState} from 'react';
+import {createContext, useEffect, useState} from 'react';
 import { productsArray, getProductData } from './productStore';
 
 export const CartContext = createContext({
@@ -13,69 +13,73 @@ export const CartContext = createContext({
 export function CartProvider({children}){
     const [cartProducts, setCartProducts] = useState([]);
 
-    function getProductQuantity(id){
-        const quantity = cartProducts.find(product => product.id === id)?.quantity
-        if (quantity === undefined) return 0;
+    function sortedObject(unordered) {
+        return Object.keys(unordered).sort().reduce(
+          (obj, key) => {
+            obj[key] = unordered[key];
+            return obj;
+          }, {});
+      }
+
+    function compareObj(cartCourt, court){
+        return (JSON.stringify(sortedObject(cartCourt.court)) === JSON.stringify(sortedObject(court)))
+    }
+
+    function getProductQuantity(court){
+        let quantity = 0;
+
+        cartProducts.find(cartCourt => JSON.stringify(sortedObject(cartCourt.court)) === JSON.stringify(sortedObject(court)))
+        ? quantity = 1
+        : quantity = 0
+
         return quantity;
     }
 
-    function addOneToCart(id){
-        const quantity = getProductQuantity(id);
-        const product = getProductData(id)
+    function addOneToCart(court){
+        const quantity = getProductQuantity(court);
+    
         if (quantity === 0){
             // product not yet in cart
             setCartProducts(
                 [   //previous cart products still remain in cart
                     ...cartProducts,
-                    {
-                        // add the new item
-                        id:id,
-                        quantity: 1,
-                        title: product.title,
-                        price: product.price
-                    }
+                    {court}
                 ]
             )
-        }else {
-            // product already in cart
-            setCartProducts(
-                cartProducts.map(
-                    product =>
-                    product.id === id
-                    ? {...product, quantity: product.quantity + 1}
-                    : product
-                )
-            )
         }
+        
     }
 
+    useEffect(() => {
+        console.log(cartProducts)
+    }, [cartProducts])
+
     // DIY
-    function deleteFromCart(id){
-        const newProducts = cartProducts.filter(product => product.id !== id)
+    function deleteFromCart(court){
+        const newProducts = cartProducts.filter(cartCourt => !(compareObj(cartCourt, court)))
         setCartProducts(newProducts)
     }
 
-    function removeOneToCart(id){
-        const quantity = getProductQuantity(id);
-        if (quantity === 1){
-            deleteFromCart(id);
-        }else {
-            setCartProducts(
-                cartProducts.map(
-                    product =>
-                    product.id === id
-                    ? {...product, quantity: product.quantity - 1}
-                    : product
-                )
-            )
-        }
-    } 
+    // function removeOneToCart(court){
+    //     const quantity = getProductQuantity(id);
+    //     if (quantity === 1){
+    //         deleteFromCart(id);
+    //     }else {
+    //         setCartProducts(
+    //             cartProducts.map(
+    //                 product =>
+    //                 product.id === id
+    //                 ? {...product, quantity: product.quantity - 1}
+    //                 : product
+    //             )
+    //         )
+    //     }
+    // } 
     
     function getTotalCost(){
         let totalCost = 0;
-        cartProducts.map(cartItem => {
-            const productData = getProductData(cartItem.id);
-            totalCost += (productData.price * cartItem.quantity);
+        cartProducts.map(cartCourt => {
+            totalCost += cartCourt.court.price 
         })
         return totalCost;
     }
@@ -84,7 +88,6 @@ export function CartProvider({children}){
         items: cartProducts,
         getProductQuantity,
         addOneToCart,
-        removeOneToCart,
         deleteFromCart,
         getTotalCost
     }
