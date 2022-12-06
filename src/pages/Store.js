@@ -1,5 +1,4 @@
 import {Button, Row} from 'react-bootstrap'
-import { productsArray } from '../productStore';
 import ProductCard from '../components/ProductCard';
 import { useState,useEffect } from 'react';
 
@@ -21,7 +20,7 @@ const Store = () => {
 
         console.log(searchCourt)
 
-        fetch('http://localhost:4000', {
+        fetch('http://localhost:8080', {
             method: "POST",
             headers: {"Content-Type": "application/json"},
             body: JSON.stringify(searchCourt)

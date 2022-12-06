@@ -14,7 +14,7 @@ const NavbarComponent = () => {
     // const productsCount = cart.items.reduce((sum, product) => sum + product.quantity, 0)
 
     const handleCheckout = async() => {
-        await fetch("http://localhost:4000/create-checkout-session", {
+        await fetch("http://localhost:8080/create-checkout-session", {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json'

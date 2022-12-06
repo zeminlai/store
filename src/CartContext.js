@@ -1,5 +1,4 @@
 import {createContext, useEffect, useState} from 'react';
-import { productsArray, getProductData } from './productStore';
 
 export const CartContext = createContext({
     items: [],

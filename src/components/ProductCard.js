@@ -22,7 +22,7 @@ const ProductCard = (props) => {
                         <div className=''>
 
                             <Card.Title>Court {court.court}</Card.Title>
-                            <Card.Text>{court.venue}</Card.Text>
+                            <Card.Text>{court.venue} | {court.date} | {court.timestart}:00</Card.Text>
                             <Card.Text>RM{court.price}</Card.Text>
                         </div>
                         <div className=''>
