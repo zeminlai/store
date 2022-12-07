@@ -17,13 +17,14 @@ const ProductCard = (props) => {
     const cart = useContext(CartContext);
     const productQuantity = cart.getProductQuantity(court)
     return ( 
-        <Card>
+        <Card className="productCard">
             <Card.Body className='d-flex justify-content-between align-items-center'>
                         <div className=''>
 
-                            <Card.Title>Court {court.court}</Card.Title>
-                            <Card.Text>{court.venue} | {court.date} | {court.timestart}:00</Card.Text>
-                            <Card.Text>RM{court.price}</Card.Text>
+                            <Card.Title className='m-1'>Court {court.court}</Card.Title>
+                            <Card.Text className='m-1'>{court.venue} | {court.date} | {court.timestart}:00</Card.Text>
+                            <Card.Text className='m-1'>{court.sport}</Card.Text>
+                            <Card.Text className='m-1'>RM{court.price}</Card.Text>
                         </div>
                         <div className=''>
 

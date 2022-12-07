@@ -20,7 +20,7 @@ const Store = () => {
 
         console.log(searchCourt)
 
-        fetch('http://localhost:8080', {
+        fetch('http://localhost:8080/booking', {
             method: "POST",
             headers: {"Content-Type": "application/json"},
             body: JSON.stringify(searchCourt)
@@ -30,13 +30,6 @@ const Store = () => {
              setBookedCourt(data.bookedCourt.bookedCourt)
              setVenueInfo(data.venueInfo.venueInfo[0])
         })
-    }
-
-    const testingFunc = () => {
-        console.log(bookedCourt)
-        console.log(venueInfo)
-        console.log(searchCourt)
-
     }
 
     useEffect(() =>{
@@ -61,49 +54,87 @@ const Store = () => {
         console.log(availableCourts)
     }
     return ( 
+        
+    
         <div>
             <h1 align="center" className="p-3">Search Courts</h1>
+            <div className="body">
+            <div className="book-background">
+                <div className="book-container">
+                <div className="bcolumn">
+                            <div className="word">
+                                <h2 className="title">Find Court</h2>
+                            </div>
+                        <form className="brow" onSubmit={handleSubmit}>
+                            
+
+                    
+                                <div className="venue">
+                                    <label className="form-label" style={{fontWeight: 500}}>Venue</label>
+                                    <div className="bckselect">
+                                    <select className="select" id="venue" name="venue" value={venue} onChange={e => setVenue(e.target.value)}>
+                                
+                                        <option value="KTDI">KTDI</option>
+                                        <option value="KTHO">KTHO</option>
+                                    </select>
+                                    </div>
+                                    
+                                </div>
+
+                                
+                                <div className="sport">
+                                    <label className="form-label" style={{fontWeight: 500}}>Sport</label>
+                                    <select className="select" id="sport" name="sport" value={sport} onChange={e => setSport(e.target.value)}>
+                            
+                                    <option value="badminton">Badminton</option>
+                                    <option value="basketball">Basketball</option>
+                                    <option value="futsal">Futsal</option>
+                                    </select>
+                                </div>
+
+                    
+                                <div className="date">
+                                    <label className="form-label" style={{fontWeight: 500}}>Date</label>
+                                    <input type="date" className="form-control" name="date" min={new Date().toISOString().split('T')[0]} required id="datePickerId" value={date} onChange={e => setDate(e.target.value)}/>
+                                </div>
+
+                    
+                                <div className="time">
+                                        <label className="form-label" style={{fontWeight: 500}}>Time</label>
+                                        <select className="select" id="time" name="timestart" required value={timestart} onChange={e => setTimestart(e.target.value)}>
+                                            <option value="12">12:00pm</option>
+                                            <option value="13">1:00pm</option>
+                                            <option value="14">2:00pm</option>
+                                            <option value="15">3:00pm</option>
+                                            <option value="16">4:00pm</option>
+                                            <option value="17">5:00pm</option>
+                                            <option value="18">6:00pm</option>
+                                            <option value="19">7:00pm</option>
+                                            <option value="20">8:00pm</option>
+                                            <option value="21">9:00pm</option>
+                                            <option value="22">10:00pm</option>
+                                        </select>
+                                    </div>
+
+                    
+                                    <div className="hour">
+                                    <label className="form-label" style={{fontWeight: 500}}>Hours</label>
+                                    <select className="select" name="duration" id="duration" required>
+                                
+                                        <option value="1">1 hour</option>
+                                    </select>
+                                    </div>
+
+                                    <div className="find">
+                                        <button type="submit" className="find-btn"><i className="fa-solid fa-right-long"></i></button>
+                                    </div>
+                            
+                        </form>
+                    </div>
+                </div>
+            </div>
+    </div>
             
-            <div align="center" className="m-5">
-            <p>One hour interval only</p>
-            <form  onSubmit={handleSubmit} className="d-flex ">
-
-                <select className='form-select m-2' id="venue" name="venue" value={venue} onChange={e => setVenue(e.target.value)}>
-                    <option value="KTDI">KTDI</option>
-                    <option value="KTHO">KTHO</option>
-                    <option value="KTC">KTC</option>
-                    <option value="K9K10">K9/K10</option>
-                </select>
-
-                <select className='form-select m-2' id="sport" name="sport" value={sport} onChange={e => setSport(e.target.value)}>
-                    <option value="badminton">Badminton</option>
-                    <option value="basketball">Basketball</option>
-                    <option value="futsal">Futsal</option>
-                    
-                </select>
-                <input className="form-select m-2" type="date" name="date" min={new Date().toISOString().split('T')[0]} required id="datePickerId" value={date} onChange={e => setDate(e.target.value)}/>
-                
-                <select className='form-select m-2' id="time" name="timestart" required value={timestart} onChange={e => setTimestart(e.target.value)}>
-                    <option value="12">12:00pm</option>
-                    <option value="13">1:00pm</option>
-                    <option value="14">2:00pm</option>
-                    <option value="15">3:00pm</option>
-                    <option value="16">4:00pm</option>
-                    <option value="17">5:00pm</option>
-                    <option value="18">6:00pm</option>
-                    <option value="19">7:00pm</option>
-                    <option value="20">8:00pm</option>
-                    <option value="21">9:00pm</option>
-                    <option value="22">10:00pm</option>
-                    
-                </select>
-                <select className='form-select m-2' name="duration" id="duration" required>
-                    <option value="1">1 hour</option>
-                </select>
-                
-                <input class="btn btn-success m-2"type="submit" value="Find!"></input>
-            </form>
-        </div>
 
 
             <Row className='gy-3 m-5'>

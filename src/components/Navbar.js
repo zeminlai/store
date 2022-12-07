@@ -1,5 +1,5 @@
 import {Button, Container, Navbar, Modal, ModalBody} from 'react-bootstrap'
-import {useState, useContext} from 'react';
+import {useState, useContext, useEffect} from 'react';
 import { CartContext } from '../CartContext';
 import CartProduct from './CartProduct';
 
@@ -7,6 +7,7 @@ const NavbarComponent = () => {
     const cart = useContext(CartContext);
 
     const [show, setShow] = useState(false);
+    const [tokenId, setTokenId] = useState('')
     const handleShow = () => {setShow(true)};
     const handleClose = () => {setShow(false)}
 
@@ -27,12 +28,32 @@ const NavbarComponent = () => {
         })
     }
 
+    useEffect(() => {
+        fetch('http://localhost:8080/check')
+            .then(response => response.json())
+            .then(data => {
+                console.log(data)
+                setTokenId(data.id)
+            })
+    },[])
+
     return ( 
-        <>
+        <div className="navbar-lol">
         <Navbar expands="sm">
-            <Navbar.Brand href="/">Playlah</Navbar.Brand>
+            <Navbar.Brand href="/">C R O C</Navbar.Brand>
+
             <Navbar.Toggle />
             <Navbar.Collapse className='justify-content-end'>
+
+
+                {tokenId
+                ? 
+                <Button className='m-4 btn btn-success' href="http://localhost:8080/dashboard">Dashboard</Button>
+                :
+                <Button className="m-4 btn btn-info " href="http://localhost:8080/login">Login</Button>
+                }
+
+
                 <Button onClick={handleShow}>Cart ({productsCount} items)</Button>
             </Navbar.Collapse>
         </Navbar>
@@ -51,11 +72,11 @@ const NavbarComponent = () => {
                     <h3>Total: RM{cart.getTotalCost()}</h3>
                     <Button onClick={handleCheckout}>Checkout</Button>
                 </>
-                : <h3>There are no items yet...</h3>
+                : <p>There are no items yet...</p>
                 }
             </ModalBody>
         </Modal>
-        </>
+        </div>
 )}
  
 export default NavbarComponent;
