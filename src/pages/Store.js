@@ -76,6 +76,7 @@ const Store = () => {
                                 
                                         <option value="KTDI">KTDI</option>
                                         <option value="KTHO">KTHO</option>
+                                        <option value="K9/K10">K9/K10</option>
                                     </select>
                                     </div>
                                     

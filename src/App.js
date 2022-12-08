@@ -18,7 +18,7 @@ function App() {
       <NavbarComponent></NavbarComponent>
       <HashRouter>
         <Routes>
-          <Route path="/" element={<Home />} />
+          <Route exact path="/" element={<Home />} />
           <Route path="booking" element={<Store />} />
           <Route path="success" element={<Success />} />
           <Route path="cancel" element={<Cancel />} />

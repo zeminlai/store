@@ -1,4 +1,4 @@
-import {Button, Container, Navbar, Modal, ModalBody} from 'react-bootstrap'
+import {Button, Container, Navbar, Modal, ModalBody, Dropdown} from 'react-bootstrap'
 import {useState, useContext, useEffect} from 'react';
 import { CartContext } from '../CartContext';
 import CartProduct from './CartProduct';
@@ -37,10 +37,19 @@ const NavbarComponent = () => {
             })
     },[])
 
+    let menuToggle = document.querySelector('.menuToggle')
+    let body = document.querySelector('body')
+    let navigation = document.querySelector('.navigation')
+    function handleToggle(){
+        menuToggle.classList.toggle('active')
+        navigation.classList.toggle('active')
+      }
+
     return ( 
         <div className="navbar-lol">
+
         <Navbar expands="sm">
-            <Navbar.Brand href="/">C R O C</Navbar.Brand>
+            <Navbar.Brand href="/home">C R O C</Navbar.Brand>
 
             <Navbar.Toggle />
             <Navbar.Collapse className='justify-content-end'>
@@ -48,15 +57,29 @@ const NavbarComponent = () => {
 
                 {tokenId
                 ? 
-                <Button className='m-4 btn btn-success' href="http://localhost:8080/dashboard">Dashboard</Button>
+                <Button className='m-4 btn btn-danger' href="http://localhost:8080/logout">Log Out</Button>
                 :
                 <Button className="m-4 btn btn-info " href="http://localhost:8080/login">Login</Button>
                 }
 
 
                 <Button onClick={handleShow}>Cart ({productsCount} items)</Button>
+
+                <Dropdown className='m-3'>
+                    <Dropdown.Toggle variant="secondary" id="dropdown-basic">
+                        Menu
+                    </Dropdown.Toggle>
+
+                    <Dropdown.Menu >
+                        <Dropdown.Item href="http://localhost:8080/home">Home</Dropdown.Item>
+                        <Dropdown.Item href="http://localhost:8080/#/booking">Booking</Dropdown.Item>
+                        <Dropdown.Item href="http://localhost:8080/discover">Discover</Dropdown.Item>
+                        <Dropdown.Item href="http://localhost:8080/dashboard">Upcoming</Dropdown.Item>
+                    </Dropdown.Menu>
+                </Dropdown>
             </Navbar.Collapse>
         </Navbar>
+
         <Modal show={show} onHide={handleClose}>
             <Modal.Header closeButton>
                 <Modal.Title>Shopping Cart </Modal.Title>

@@ -1,10 +1,12 @@
+import { useEffect } from "react";
+
 const Home = () => {
+        useEffect(() => {
+          window.location.replace('http://localhost:8080/home')
+        }, [])
+      
     return ( 
     <>
-        <ul>
-            <a href="http://localhost:8080/#/booking">Booking Page</a>
-            <a href="http://localhost:8080/discover">Discover Page</a>
-        </ul>
     
     </> 
     );
