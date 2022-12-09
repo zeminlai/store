@@ -59,22 +59,6 @@ export function CartProvider({children}){
         setCartProducts(newProducts)
     }
 
-    // function removeOneToCart(court){
-    //     const quantity = getProductQuantity(id);
-    //     if (quantity === 1){
-    //         deleteFromCart(id);
-    //     }else {
-    //         setCartProducts(
-    //             cartProducts.map(
-    //                 product =>
-    //                 product.id === id
-    //                 ? {...product, quantity: product.quantity - 1}
-    //                 : product
-    //             )
-    //         )
-    //     }
-    // } 
-    
     function getTotalCost(){
         let totalCost = 0;
         cartProducts.map(cartCourt => {

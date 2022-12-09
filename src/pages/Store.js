@@ -14,6 +14,7 @@ const Store = () => {
 
     let searchCourt = {venue, sport, date, timestart}
 
+    // function to post data when filterbar contents is submittted
     const handleSubmit = (e) => {
         e.preventDefault();
         searchCourt = {venue, sport, date, timestart}
