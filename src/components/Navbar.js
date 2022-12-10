@@ -15,7 +15,7 @@ const NavbarComponent = () => {
     // const productsCount = cart.items.reduce((sum, product) => sum + product.quantity, 0)
 
     const handleCheckout = async() => {
-        await fetch("http://localhost:8080/create-checkout-session", {
+        await fetch("/create-checkout-session", {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json'
@@ -29,7 +29,7 @@ const NavbarComponent = () => {
     }
 
     useEffect(() => {
-        fetch('http://localhost:8080/check')
+        fetch('/check')
             .then(response => response.json())
             .then(data => {
                 console.log(data)
@@ -57,9 +57,9 @@ const NavbarComponent = () => {
 
                 {tokenId
                 ? 
-                <Button className='m-4 btn btn-danger' href="http://localhost:8080/logout">Log Out</Button>
+                <Button className='m-4 btn btn-danger' href="/logout">Log Out</Button>
                 :
-                <Button className="m-4 btn btn-info " href="http://localhost:8080/login">Login</Button>
+                <Button className="m-4 btn btn-info " href="/login">Login</Button>
                 }
 
 
@@ -71,10 +71,10 @@ const NavbarComponent = () => {
                     </Dropdown.Toggle>
 
                     <Dropdown.Menu >
-                        <Dropdown.Item href="http://localhost:8080/home">Home</Dropdown.Item>
-                        <Dropdown.Item href="http://localhost:8080/#/booking">Booking</Dropdown.Item>
-                        <Dropdown.Item href="http://localhost:8080/discover">Discover</Dropdown.Item>
-                        <Dropdown.Item href="http://localhost:8080/dashboard">Upcoming</Dropdown.Item>
+                        <Dropdown.Item href="/home">Home</Dropdown.Item>
+                        <Dropdown.Item href="/booking">Booking</Dropdown.Item>
+                        <Dropdown.Item href="/discover">Discover</Dropdown.Item>
+                        <Dropdown.Item href="/dashboard">Upcoming</Dropdown.Item>
                     </Dropdown.Menu>
                 </Dropdown>
             </Navbar.Collapse>

@@ -21,7 +21,7 @@ const Store = () => {
 
         console.log(searchCourt)
 
-        fetch('http://localhost:8080/booking', {
+        fetch('/booking', {
             method: "POST",
             headers: {"Content-Type": "application/json"},
             body: JSON.stringify(searchCourt)
