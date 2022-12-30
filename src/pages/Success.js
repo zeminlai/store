@@ -1,7 +1,7 @@
 import {Button} from 'react-bootstrap'
 const Success = () => {
     const redirectHome = () => {
-        window.location.href= "https://shopping-payment-production.up.railway.app/home"
+        window.location.href= "https://playlah.store/home"
     }
     return (  
         <>
