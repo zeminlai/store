@@ -2,7 +2,7 @@ import { useEffect } from "react";
 
 const Home = () => {
         useEffect(() => {
-          window.location.replace('http://playlah.store/home')
+          window.location.replace('https://playlah.store/home')
         }, [])
       
     return ( 
